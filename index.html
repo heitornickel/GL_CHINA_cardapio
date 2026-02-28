@@ -200,8 +200,8 @@
     </div>
 
     <footer>
-        <p class="endereco">Av. Dionysia Alves Barreto, 802, Vila Osasco, Osasco, SP</p>
-        <p class="horario">Seg a Sáb • 8h às 20h</p>
+        <p class="endereco">📍 Av. Dionysia Alves Barreto, 802<br>Vila Osasco, Osasco - SP</p>
+        <p class="horario">🕐 Seg a Sáb • 8h às 20h</p>
         <p style="margin-top: 20px;">LG CHINA © 2024</p>
     </footer>
 
@@ -209,113 +209,119 @@
         <span>💬 Pedir no WhatsApp</span>
     </a>
 
-    <!-- SCRIPT DE INTEGRAÇÃO GOOGLE SHEETS (MÚLTIPLAS ABAS) -->
+    <!-- SCRIPT DE INTEGRAÇÃO GOOGLE SHEETS -->
     <script>
-        // ⚠️ SUBSTITUA PELO ID DA SUA PLANILHA
-        const SHEET_ID = '2PACX-1vQRYZnUOWkUz2eMky4EAWi946VLVC2Zv9ezm6v6738U00_R6_5Av-9JZuEAVvjjqHVXuVu9fKNBPCFG';
-        
-        // Nomes das abas (exatamente como estão na planilha)
-        const ABAS = [
-            'PRINCIPAIS',
-            'MARMITAS',
-            'PORCOES',
-            'PASTEIS',
-            'LANCHES',
-            'CAFE',
-            'BEBIDAS'
-        ];
-
-        // Configuração de exibição (nome, ícone, ID para link)
-        const CATEGORIAS = {
-            'Principais': { nome: 'Principais P/G', icone: '🍜', id: 'PRINCIPAIS' },
-            'Marmitas': { nome: 'Marmitas', icone: '🍱', id: 'MARMITAS' },
-            'Porções': { nome: 'Porções', icone: '🍤', id: 'PORCOES' },
-            'Pasteis': { nome: 'Pastéis', icone: '🥟', id: 'PASTEIS' },
-            'Lanches': { nome: 'Lanches', icone: '🍔', id: 'LANCHES' },
-            'Cafe': { nome: 'Café da Manhã', icone: '☕', id: 'CAFE' },
-            'Bebidas': { nome: 'Bebidas', icone: '🥤', id: 'BEBIDAS' }
-        };
-
-        // Busca dados de uma aba específica
-        async function buscarAba(nomeAba) {
-            const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(nomeAba)}`;
-            const response = await fetch(url);
-            const texto = await response.text();
+        (function() {
+            'use strict';
             
-            // Parse do CSV
-            const linhas = texto.split('\n').map(linha => {
-                const colunas = linha.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
-                return colunas.map(col => col.replace(/^"|"$/g, '').trim());
-            }).filter(linha => linha.length > 0 && linha[0]); // Remove linhas vazias
+            // ✅ SEU ID DA PLANILHA
+            const SHEET_ID = '1citDb4cjHNWTZq-laTu_3gZnXZGoyx69Dh5q5axj5kQ';
+            
+            const ABAS = [
+                'PRINCIPAIS', 'MARMITAS', 'PORCOES', 'PASTEIS',
+                'LANCHES', 'CAFE', 'BEBIDAS'
+            ];
 
-            // Remove cabeçalho se existir (verifica se primeira linha parece cabeçalho)
-            if (linhas.length > 0 && isNaN(parseFloat(linhas[0][1]))) {
-                linhas.shift();
-            }
+            const CATEGORIAS = {
+                'PRINCIPAIS': { nome: 'Principais P/G', icone: '🍜', id: 'principais' },
+                'MARMITAS': { nome: 'Marmitas', icone: '🍱', id: 'marmitas' },
+                'PORCOES': { nome: 'Porções', icone: '🍤', id: 'porcoes' },
+                'PASTEIS': { nome: 'Pastéis', icone: '🥟', id: 'pasteis' },
+                'LANCHES': { nome: 'Lanches', icone: '🍔', id: 'lanches' },
+                'CAFE': { nome: 'Café da Manhã', icone: '☕', id: 'cafe' },
+                'BEBIDAS': { nome: 'Bebidas', icone: '🥤', id: 'bebidas' }
+            };
 
-            return linhas.map(linha => ({
-                nome: linha[0] || '',
-                precoP: linha[1] || '',
-                precoG: linha[2] || ''
-            })).filter(item => item.nome); // Remove itens sem nome
-        }
-
-        // Carrega todas as abas e renderiza
-        async function carregarCardapio() {
-            try {
-                const nav = document.getElementById('nav-categorias');
-                const container = document.getElementById('cardapio');
+            async function buscarAba(nomeAba) {
+                const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(nomeAba)}`;
                 
-                // Renderiza navegação
-                nav.innerHTML = ABAS.map(aba => {
-                    const cat = CATEGORIAS[aba];
-                    if (!cat) return '';
-                    return `<a href="#${cat.id}" class="btn-cat">${cat.nome}</a>`;
-                }).join('');
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: { 'Accept': 'text/csv' },
+                    cache: 'no-cache',
+                    credentials: 'omit'
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Erro ao buscar aba ${nomeAba}: ${response.status}`);
+                }
+                
+                const texto = await response.text();
+                
+                const linhas = texto.split('\n').map(linha => {
+                    const colunas = linha.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
+                    return colunas.map(col => col.replace(/^"|"$/g, '').trim());
+                }).filter(linha => linha.length > 0 && linha[0]);
 
-                // Carrega e renderiza cada aba
-                let html = '';
-                for (const aba of ABAS) {
-                    const cat = CATEGORIAS[aba];
-                    if (!cat) continue;
-
-                    const itens = await buscarAba(aba);
-                    if (itens.length === 0) continue;
-
-                    html += `
-                        <h2 id="${cat.id}" class="titulo-grupo">
-                            ${cat.icone} ${cat.nome}
-                        </h2>
-                        ${itens.map(i => {
-                            const precos = [];
-                            if (i.precoP) precos.push(`P: R$ ${i.precoP}`);
-                            if (i.precoG) precos.push(`G: R$ ${i.precoG}`);
-                            
-                            return `
-                                <div class="item">
-                                    <div class="item-info">
-                                        <div class="item-nome">${i.nome}</div>
-                                        <div class="item-precos">
-                                            ${precos.map(p => `<span>${p}</span>`).join('')}
-                                        </div>
-                                    </div>
-                                </div>
-                            `;
-                        }).join('')}
-                    `;
+                if (linhas.length > 0 && isNaN(parseFloat(linhas[0][1]))) {
+                    linhas.shift();
                 }
 
-                container.innerHTML = html;
-
-            } catch (erro) {
-                console.error('Erro ao carregar cardápio:', erro);
-                document.getElementById('cardapio').innerHTML = 
-                    '<div class="loading">Erro ao carregar cardápio. Verifique a planilha.</div>';
+                return linhas.map(linha => ({
+                    nome: linha[0] || '',
+                    precoP: linha[1] || '',
+                    precoG: linha[2] || ''
+                })).filter(item => item.nome);
             }
-        }
 
-        // Carregar ao iniciar
-        carregarCardapio();
+            async function carregarCardapio() {
+                try {
+                    const nav = document.getElementById('nav-categorias');
+                    const container = document.getElementById('cardapio');
+                    
+                    nav.innerHTML = ABAS.map(aba => {
+                        const cat = CATEGORIAS[aba];
+                        if (!cat) return '';
+                        return `<a href="#${cat.id}" class="btn-cat">${cat.nome}</a>`;
+                    }).join('');
+
+                    let html = '';
+                    for (const aba of ABAS) {
+                        const cat = CATEGORIAS[aba];
+                        if (!cat) continue;
+
+                        const itens = await buscarAba(aba);
+                        if (itens.length === 0) continue;
+
+                        html += `
+                            <h2 id="${cat.id}" class="titulo-grupo">
+                                ${cat.icone} ${cat.nome}
+                            </h2>
+                            ${itens.map(i => {
+                                const precos = [];
+                                if (i.precoP) precos.push(`P: R$ ${i.precoP}`);
+                                if (i.precoG) precos.push(`G: R$ ${i.precoG}`);
+                                
+                                return `
+                                    <div class="item">
+                                        <div class="item-info">
+                                            <div class="item-nome">${i.nome}</div>
+                                            <div class="item-precos">
+                                                ${precos.map(p => `<span>${p}</span>`).join('')}
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        `;
+                    }
+
+                    container.innerHTML = html;
+
+                } catch (erro) {
+                    console.error('Erro ao carregar cardápio:', erro);
+                    document.getElementById('cardapio').innerHTML = 
+                        `<div class="loading">Erro ao carregar.<br><small>${erro.message}</small></div>`;
+                }
+            }
+
+            // Garante que o DOM esteja pronto antes de executar
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', carregarCardapio);
+            } else {
+                carregarCardapio();
+            }
+        })();
     </script>
 </body>
 </html>
