@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LG CHINA - Cardápio</title>
+    
+    <style>
+        @font-face {
+            font-family: 'Summer-Font-Light';
+            src: url('./Summer-Font-Light.ttf.woff') format('woff'),
+                 url('./Summer-Font-Light.ttf.svg#Summer-Font-Light') format('svg'),
+                 url('./Summer-Font-Light.ttf.eot'),
+                 url('./Summer-Font-Light.ttf.eot?#iefix') format('embedded-opentype'); 
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            --cor-header: #2E1A04;
+            --cor-fundo: #000000;
+            --cor-texto: #ffffff;
+            --cor-destaque: #ff9933;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background-color: var(--cor-fundo); 
+            color: var(--cor-destaque);
+            font-family: 'Summer-Font-Light', cursive, sans-serif; 
+            font-size: 20px;
+            line-height: 1.4;
+        }
+
+        header {
+            background-color: var(--cor-header);
+            text-align: center;
+            padding: 30px 20px;
+            width: 100%;
+        }
+        header h1 { 
+            font-size: 3.5rem; 
+            color: var(--cor-texto); 
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            display: block;
+        }
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .nav-categorias {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 30px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .btn-cat {
+            background: transparent;
+            border: none;
+            color: var(--cor-destaque);
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-family: 'Summer-Font-Light', cursive, sans-serif;
+            white-space: nowrap;
+        }
+        .btn-cat:hover { opacity: 0.7; }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        
+        .titulo-grupo {
+            color: var(--cor-destaque);
+            font-size: 2.2rem;
+            margin: 60px 0 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0;
+            margin-bottom: 1.4em;
+            border: none;
+            background: transparent;
+        }
+        
+        .item-info { 
+            flex: 1; 
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            width: 100%;
+        }
+        
+        .item-nome {
+            font-size: 1.8rem;
+            color: var(--cor-destaque);
+            white-space: nowrap;
+            flex: 1;
+        }
+        
+        .item-precos {
+            font-size: 1.8rem;
+            color: var(--cor-destaque);
+            font-weight: bold;
+            white-space: nowrap;
+            text-align: right;
+        }
+        
+        .item-precos span { margin-left: 20px; }
+
+        .btn-whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #25D366;
+            color: white;
+            padding: 18px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-family: sans-serif;
+        }
+        .btn-whatsapp-float:hover { background-color: #1ebc57; }
+
+        footer { 
+            text-align: center; 
+            padding: 60px 25px; 
+            color: var(--cor-destaque);
+            font-size: 1.3rem; 
+            margin-top: 60px;
+            line-height: 1.8;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: var(--cor-destaque);
+            font-size: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .nav-categorias { max-width: 600px; }
+            .container { max-width: 700px; }
+            header h1 { font-size: 4rem; }
+            .item-nome, .item-precos { font-size: 2rem; }
+            .titulo-grupo { font-size: 2.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            body { font-size: 18px; }
+            header h1 { font-size: 2.8rem; width: 80%; }
+            .item-nome, .item-precos { font-size: 1.5rem; }
+            .titulo-grupo { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>LG CHINA</h1>
+    </header>
+
+    <div class="hero-image">
+        <img src="yakisoba.png" alt="Yakisoba">
+    </div>
+
+    <nav class="nav-categorias" id="nav-categorias">
+        <!-- Preenchido via JavaScript -->
+    </nav>
+
+    <div class="container" id="cardapio">
+        <div class="loading">Carregando cardápio...</div>
+    </div>
+
+    <footer>
+        <p class="endereco">Av. Dionysia Alves Barreto, 802, Vila Osasco, Osasco, SP</p>
+        <p class="horario">Seg a Sáb • 8h às 20h</p>
+        <p style="margin-top: 20px;">LG CHINA © 2024</p>
+    </footer>
+
+    <a href="https://wa.me/5511958974341?text=Olá, vim pelo cardápio online e gostaria de fazer um pedido!" class="btn-whatsapp-float" target="_blank">
+        <span>💬 Pedir no WhatsApp</span>
+    </a>
+
+    <!-- SCRIPT DE INTEGRAÇÃO GOOGLE SHEETS (MÚLTIPLAS ABAS) -->
+    <script>
+        // ⚠️ SUBSTITUA PELO ID DA SUA PLANILHA
+        const SHEET_ID = '2PACX-1vQRYZnUOWkUz2eMky4EAWi946VLVC2Zv9ezm6v6738U00_R6_5Av-9JZuEAVvjjqHVXuVu9fKNBPCFG';
+        
+        // Nomes das abas (exatamente como estão na planilha)
+        const ABAS = [
+            'PRINCIPAIS',
+            'MARMITAS',
+            'PORCOES',
+            'PASTEIS',
+            'LANCHES',
+            'CAFE',
+            'BEBIDAS'
+        ];
+
+        // Configuração de exibição (nome, ícone, ID para link)
+        const CATEGORIAS = {
+            'Principais': { nome: 'Principais P/G', icone: '🍜', id: 'PRINCIPAIS' },
+            'Marmitas': { nome: 'Marmitas', icone: '🍱', id: 'MARMITAS' },
+            'Porções': { nome: 'Porções', icone: '🍤', id: 'PORCOES' },
+            'Pasteis': { nome: 'Pastéis', icone: '🥟', id: 'PASTEIS' },
+            'Lanches': { nome: 'Lanches', icone: '🍔', id: 'LANCHES' },
+            'Cafe': { nome: 'Café da Manhã', icone: '☕', id: 'CAFE' },
+            'Bebidas': { nome: 'Bebidas', icone: '🥤', id: 'BEBIDAS' }
+        };
+
+        // Busca dados de uma aba específica
+        async function buscarAba(nomeAba) {
+            const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(nomeAba)}`;
+            const response = await fetch(url);
+            const texto = await response.text();
+            
+            // Parse do CSV
+            const linhas = texto.split('\n').map(linha => {
+                const colunas = linha.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
+                return colunas.map(col => col.replace(/^"|"$/g, '').trim());
+            }).filter(linha => linha.length > 0 && linha[0]); // Remove linhas vazias
+
+            // Remove cabeçalho se existir (verifica se primeira linha parece cabeçalho)
+            if (linhas.length > 0 && isNaN(parseFloat(linhas[0][1]))) {
+                linhas.shift();
+            }
+
+            return linhas.map(linha => ({
+                nome: linha[0] || '',
+                precoP: linha[1] || '',
+                precoG: linha[2] || ''
+            })).filter(item => item.nome); // Remove itens sem nome
+        }
+
+        // Carrega todas as abas e renderiza
+        async function carregarCardapio() {
+            try {
+                const nav = document.getElementById('nav-categorias');
+                const container = document.getElementById('cardapio');
+                
+                // Renderiza navegação
+                nav.innerHTML = ABAS.map(aba => {
+                    const cat = CATEGORIAS[aba];
+                    if (!cat) return '';
+                    return `<a href="#${cat.id}" class="btn-cat">${cat.nome}</a>`;
+                }).join('');
+
+                // Carrega e renderiza cada aba
+                let html = '';
+                for (const aba of ABAS) {
+                    const cat = CATEGORIAS[aba];
+                    if (!cat) continue;
+
+                    const itens = await buscarAba(aba);
+                    if (itens.length === 0) continue;
+
+                    html += `
+                        <h2 id="${cat.id}" class="titulo-grupo">
+                            ${cat.icone} ${cat.nome}
+                        </h2>
+                        ${itens.map(i => {
+                            const precos = [];
+                            if (i.precoP) precos.push(`P: R$ ${i.precoP}`);
+                            if (i.precoG) precos.push(`G: R$ ${i.precoG}`);
+                            
+                            return `
+                                <div class="item">
+                                    <div class="item-info">
+                                        <div class="item-nome">${i.nome}</div>
+                                        <div class="item-precos">
+                                            ${precos.map(p => `<span>${p}</span>`).join('')}
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    `;
+                }
+
+                container.innerHTML = html;
+
+            } catch (erro) {
+                console.error('Erro ao carregar cardápio:', erro);
+                document.getElementById('cardapio').innerHTML = 
+                    '<div class="loading">Erro ao carregar cardápio. Verifique a planilha.</div>';
+            }
+        }
+
+        // Carregar ao iniciar
+        carregarCardapio();
+    </script>
+</body>
+</html>
