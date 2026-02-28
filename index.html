@@ -151,11 +151,26 @@
             font-size: 1.2rem;
             font-family: sans-serif;
         }
+        .btn-whatsapp-novo {
+            position: fixed;
+            bottom: 70px;
+            left: 0px;
+            color: white;
+            padding: 18px 25px;
+            text-decoration: none;
+            font-weight: bold;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-family: sans-serif;
+        }
         .btn-whatsapp-float:hover { background-color: #1ebc57; }
 
         footer { 
-            text-align: center; 
-            padding: 60px 25px; 
+            text-align: right; 
+            padding: 100px 20px; 
             color: var(--cor-destaque);
             font-size: 1.9rem; 
             margin-top: 60px;
@@ -168,22 +183,14 @@
             color: var(--cor-destaque);
             font-size: 1.5rem;
         }
-
-        @media (min-width: 768px) {
+        @media (orientation: landscape) {
             .nav-categorias { max-width: 600px; }
             .container { max-width: 800px; }
             header h1 { font-size: 4rem; }
-            .item-nome, .item-precos { font-size: 3rem; }
-            .titulo-grupo { font-size: 2.5rem; }
-            .container { max-width: 700px; margin: 0 auto; padding: 0; }
-        }
-
-        @media (max-width: 480px) {
-            body { font-size: 18px; }
-            header h1 { font-size: 2.8rem; width: 80%; }
+            footer h1 { font-size: 4rem; }
             .item-nome, .item-precos { font-size: 3rem; }
             .titulo-grupo { font-size: 4rem; }
-            .container { max-width: 700px; margin: 0 auto; padding: 20px; }
+            .container { max-width: 700px; margin: 0 auto; padding: 0; }
         }
     </style>
 </head>
@@ -206,12 +213,12 @@
     </div>
 
     <footer>
-        <p class="endereco">Av. Dionysia Alves Barreto, 802, Centro, Osasco, SP</p>
+        <p class="endereco">Av. Dionysia Alves Barreto, 802, <br>Centro, Osasco, SP</p>
         <p class="horario">Seg a Sáb das 8h às 20h</p>
     </footer>
-
-    <a href="https://wa.me/5511958974341?text=Olá, vim pelo cardápio online e gostaria de fazer um pedido!" class="btn-whatsapp-float" target="_blank">
-        <span>💬 Pedir no WhatsApp</span>
+    
+    <a href="https://wa.me/5511958974341?text=Olá, vim pelo cardápio online e gostaria de fazer um pedido!" class="btn-whatsapp-novo" target="_blank">
+        <div><img src="glchina_botao_whatsapp.png" width="50%"></div>
     </a>
 
     <!-- SCRIPT DE INTEGRAÇÃO GOOGLE SHEETS -->
