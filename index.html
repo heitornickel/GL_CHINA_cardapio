@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cardápio online do GL CHINA - Delivery em Osasco, SP">
     <title>GL CHINA - Cardápio</title>
     
     <style>
+        /* === FONTE PERSONALIZADA === */
         @font-face {
             font-family: 'Summer-Font-Light';
             src: url('./Summer-Font-Light.ttf.woff') format('woff'),
@@ -17,6 +19,7 @@
             font-display: swap;
         }
 
+        /* === VARIÁVEIS DE CORES === */
         :root {
             --cor-header: #2E1A04;
             --cor-fundo: #000000;
@@ -24,6 +27,7 @@
             --cor-destaque: #ff9933;
         }
 
+        /* === RESET E BASE === */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
@@ -34,27 +38,24 @@
             line-height: 1.4;
         }
 
+        /* === HEADER === */
         header {
             background-color: var(--cor-header);
             text-align: center;
-            padding: 10px 10px;
+            padding: 10px;
             width: 100%;
             max-width: 700px;
             margin: 0 auto;
             height: 350px;
         }
-        header h1 { 
-            font-size: 4.5rem; 
-            color: var(--cor-texto); 
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            width: 50%;
-            margin: 0 auto;
-        }
         .topo {
             font-size: 10rem;
             color: var(--cor-texto);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
+
+        /* === IMAGEM DO YAKISOBA === */
         .hero-image {
             width: 100%;
             max-width: 700px;
@@ -67,28 +68,19 @@
             display: block;
         }
 
+        /* === NAVEGAÇÃO (OCULTA) === */
         .nav-categorias {
-            display: none;
-            justify-content: center;
-            flex-wrap: wrap;
-            padding: 30px 20px;
-            max-width: 700px;
-            margin: 0 auto;
+            display: none !important;
         }
-        .btn-cat {
-            background: transparent;
-            border: none;
-            color: var(--cor-destaque);
-            padding: 10px 20px;
-            text-decoration: none;
-            font-size: 1.3rem;
-            font-family: 'Summer-Font-Light', cursive, sans-serif;
-            white-space: nowrap;
-        }
-        .btn-cat:hover { opacity: 0.7; }
 
-        .container { max-width: 700px; margin: 0 auto; padding: 20px; }
+        /* === CONTAINER PRINCIPAL === */
+        .container { 
+            max-width: 700px; 
+            margin: 0 auto; 
+            padding: 0;
+        }
         
+        /* === TÍTULOS DE GRUPO === */
         .titulo-grupo {
             color: var(--cor-destaque);
             font-size: 3rem;
@@ -98,6 +90,7 @@
             text-align: left;
         }
 
+        /* === ITENS DO CARDÁPIO === */
         .item {
             display: flex;
             align-items: center;
@@ -133,28 +126,12 @@
         
         .item-precos span { margin-left: 20px; }
 
-        .btn-whatsapp-float {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background-color: #25D366;
-            color: white;
-            padding: 18px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            z-index: 200;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.2rem;
-            font-family: sans-serif;
-        }
+        /* === BOTÃO WHATSAPP (CENTRALIZADO) === */
         .btn-whatsapp-novo {
             position: fixed;
             bottom: 70px;
-            left: 0px;
+            left: 50%;
+            transform: translateX(-50%);
             color: white;
             padding: 18px 25px;
             text-decoration: none;
@@ -166,26 +143,31 @@
             font-size: 1.2rem;
             font-family: sans-serif;
         }
-        .btn-whatsapp-float:hover { background-color: #1ebc57; }
+        .btn-whatsapp-novo img {
+            max-width: 200px;
+            height: auto;
+        }
 
+        /* === FOOTER (ALINHADO) === */
         footer { 
             text-align: right; 
-            padding: 100px 20px; 
+            padding: 100px 20px 40px; 
             color: var(--cor-destaque);
             font-size: 1.9rem; 
-            margin-top: 60px;
             line-height: 1.8;
             max-width: 700px;
             margin: 0 auto;
         }
 
+        /* === LOADING === */
         .loading {
             text-align: center;
             padding: 50px;
             color: var(--cor-destaque);
             font-size: 1.5rem;
         }
-    /* === AVISO DE ORIENTAÇÃO === */
+
+        /* === AVISO DE ORIENTAÇÃO (FADE-OUT COMPLETO) === */
         .orientation-warning {
             display: none;
             position: fixed;
@@ -199,10 +181,18 @@
             justify-content: center;
             text-align: center;
             padding: 20px;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
         }
 
         .orientation-warning.active {
             display: flex;
+            opacity: 1;
+        }
+
+        .orientation-warning.fade-out {
+            opacity: 0;
+            pointer-events: none;
         }
 
         .orientation-image {
@@ -210,206 +200,204 @@
             max-height: 100%;
             width: auto;
             height: auto;
-            opacity: 1;
-            animation: fadeOut 1s ease-in-out 4s forwards;
         }
 
-        /* Animação de fade-out */
-        @keyframes fadeOut {
-            0% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
+        /* === MEDIA QUERIES RESPONSIVAS === */
+        @media (min-width: 768px) {
+            .item-nome, .item-precos { font-size: 2.5rem; }
+            .titulo-grupo { font-size: 2.5rem; }
         }
 
-/* Mostra o aviso apenas em mobile landscape */
-            
-    @media (orientation: landscape) {
-            .orientation-warning { display: flex; }
-            .nav-categorias { max-width: 600px; }
-            .container { max-width: 800px; }
-            header h1 { font-size: 3rem; }
-            footer h1 { font-size: 3rem; }
-            .item-nome, .item-precos { font-size: 3rem; }
-            .titulo-grupo { font-size: 3rem; }
-            .container { max-width: 700px; margin: 0 auto; padding: 0; }
+        @media (max-width: 767px) {
+            .item-nome, .item-precos { font-size: 2.2rem; }
+            .titulo-grupo { font-size: 2.2rem; }
+            .btn-whatsapp-novo { bottom: 20px; }
         }
-}
     </style>
 </head>
 <body>
 
+    <!-- CABEÇALHO -->
     <header>
         <div class="topo">GL CHINA</div>
     </header>
 
+    <!-- IMAGEM DO YAKISOBA -->
     <div class="hero-image">
-        <img src="yakisoba.png" alt="Yakisoba">
+        <img src="yakisoba.png" alt="Yakisoba GL CHINA">
     </div>
 
-    <nav class="nav-categorias" id="nav-categorias">
-        <!-- Preenchido via JavaScript -->
-    </nav>
+    <!-- NAVEGAÇÃO (OCULTA) -->
+    <nav class="nav-categorias" id="nav-categorias"></nav>
 
+    <!-- CARDÁPIO (CARREGADO VIA JS) -->
     <div class="container" id="cardapio">
         <div class="loading">Carregando cardápio...</div>
     </div>
 
+    <!-- RODAPÉ -->
     <footer>
         <p class="endereco">FAZEMOS ENTREGAS (consulte localização)</p>
-        <p class="endereco">Av. Dionysia Alves Barreto, 802, <br>Centro, Osasco, SP</p>
+        <p class="endereco">Av. Dionysia Alves Barreto, 802,<br>Centro, Osasco, SP</p>
         <p class="horario">Seg a Sáb das 8h às 20h</p>
     </footer>
     
-    <a href="https://wa.me/5511958974341?text=Olá, vim pelo cardápio online e gostaria de fazer um pedido!" class="btn-whatsapp-novo" target="_blank">
-        <div><img src="glchina_botao_whatsapp.png" width="50%"></div>
+    <!-- BOTÃO WHATSAPP -->
+    <a href="https://wa.me/5511958974341?text=Olá, vim pelo cardápio online e gostaria de fazer um pedido!" 
+       class="btn-whatsapp-novo" 
+       target="_blank" 
+       rel="noopener noreferrer">
+        <img src="glchina_botao_whatsapp.png" alt="Pedir no WhatsApp">
     </a>
-        <!-- Aviso de Orientação Portrait -->
-        <div class="orientation-warning" id="orientation-warning">
-            <img src="orientation-warning.png" alt="Gire para modo vertical" class="orientation-image">
-        </div>
-    <!-- SCRIPT DE INTEGRAÇÃO GOOGLE SHEETS -->
+
+    <!-- AVISO DE ORIENTAÇÃO PORTRAIT -->
+    <div class="orientation-warning" id="orientation-warning">
+        <img src="orientation-warning.png" alt="Gire seu dispositivo para o modo vertical" class="orientation-image">
+    </div>
+
+    <!-- JAVASCRIPT -->
     <script>
-        // Verifica orientação ao carregar e ao girar
-            let warningTimeout;
+        // === CONTROLE DE ORIENTAÇÃO MOBILE ===
+        let warningTimeout;
+        let fadeTimeout;
 
         function verificarOrientacao() {
             const aviso = document.getElementById('orientation-warning');
             const ehMobile = window.innerWidth <= 768;
             const ehLandscape = window.innerWidth > window.innerHeight;
-
+            
             if (ehMobile && ehLandscape) {
                 aviso.classList.add('active');
+                aviso.classList.remove('fade-out');
                 document.body.style.overflow = 'hidden';
-
-                // Remove o aviso após 5 segundos
-                clearTimeout(warningTimeout);
-                warningTimeout = setTimeout(() => {
-                    aviso.classList.remove('active');
-                    document.body.style.overflow = '';
-                }, 5000);
+                
+                clearTimeout(fadeTimeout);
+                fadeTimeout = setTimeout(() => {
+                    aviso.classList.add('fade-out');
+                    
+                    clearTimeout(warningTimeout);
+                    warningTimeout = setTimeout(() => {
+                        aviso.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }, 500);
+                }, 4500);
             } else {
                 aviso.classList.remove('active');
+                aviso.classList.remove('fade-out');
                 document.body.style.overflow = '';
                 clearTimeout(warningTimeout);
+                clearTimeout(fadeTimeout);
             }
         }
 
-        // Executa ao carregar e ao girar a tela
         window.addEventListener('load', verificarOrientacao);
         window.addEventListener('resize', verificarOrientacao);
         window.addEventListener('orientationchange', verificarOrientacao);
+        
+        // === INTEGRAÇÃO GOOGLE SHEETS ===
+        const SHEET_ID = '1citDb4cjHNWTZq-laTu_3gZnXZGoyx69Dh5q5axj5kQ';
+        
+        const ABAS = [
+            'PRINCIPAIS', 'MARMITAS', 'PORCOES', 'PASTEIS',
+            'LANCHES', 'CAFE', 'BEBIDAS'
+        ];
+
+        const CATEGORIAS = {
+            'PRINCIPAIS': { nome: 'Principais', icone: '', id: 'principais' },
+            'MARMITAS': { nome: 'Marmitas', icone: '', id: 'marmitas' },
+            'PORCOES': { nome: 'Porções', icone: '', id: 'porcoes' },
+            'PASTEIS': { nome: 'Pastéis', icone: '', id: 'pasteis' },
+            'LANCHES': { nome: 'Lanches', icone: '', id: 'lanches' },
+            'CAFE': { nome: 'Café da Manhã', icone: '', id: 'cafe' },
+            'BEBIDAS': { nome: 'Bebidas', icone: '', id: 'bebidas' }
+        };
+
+        async function buscarAba(nomeAba) {
+            const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(nomeAba)}`;
             
-            // ✅ SEU ID DA PLANILHA
-            const SHEET_ID = '1citDb4cjHNWTZq-laTu_3gZnXZGoyx69Dh5q5axj5kQ';
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: { 'Accept': 'text/csv' },
+                cache: 'no-cache',
+                credentials: 'omit'
+            });
             
-            const ABAS = [
-                'PRINCIPAIS', 'MARMITAS', 'PORCOES', 'PASTEIS',
-                'LANCHES', 'CAFE', 'BEBIDAS'
-            ];
+            if (!response.ok) {
+                throw new Error(`Erro ao buscar aba ${nomeAba}: ${response.status}`);
+            }
+            
+            const texto = await response.text();
+            const linhas = texto.split('\n').map(linha => {
+                const colunas = linha.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
+                return colunas.map(col => col.replace(/^"|"$/g, '').trim());
+            }).filter(linha => linha.length > 0 && linha[0]);
 
-            const CATEGORIAS = {
-                'PRINCIPAIS': { nome: 'Principais', icone: '', id: 'principais' },
-                'MARMITAS': { nome: 'Marmitas', icone: '', id: 'marmitas' },
-                'PORCOES': { nome: 'Porções', icone: '', id: 'porcoes' },
-                'PASTEIS': { nome: 'Pastéis', icone: '', id: 'pasteis' },
-                'LANCHES': { nome: 'Lanches', icone: '', id: 'lanches' },
-                'CAFE': { nome: 'Café da Manhã', icone: '', id: 'cafe' },
-                'BEBIDAS': { nome: 'Bebidas', icone: '', id: 'bebidas' }
-            };
-
-            async function buscarAba(nomeAba) {
-                const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(nomeAba)}`;
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: { 'Accept': 'text/csv' },
-                    cache: 'no-cache',
-                    credentials: 'omit'
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`Erro ao buscar aba ${nomeAba}: ${response.status}`);
-                }
-                
-                const texto = await response.text();
-                
-                const linhas = texto.split('\n').map(linha => {
-                    const colunas = linha.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
-                    return colunas.map(col => col.replace(/^"|"$/g, '').trim());
-                }).filter(linha => linha.length > 0 && linha[0]);
-
-                if (linhas.length > 0 && isNaN(parseFloat(linhas[0][1]))) {
-                    linhas.shift();
-                }
-
-                return linhas.map(linha => ({
-                    nome: linha[0] || '',
-                    precoP: linha[1] || '',
-                    precoG: linha[2] || ''
-                })).filter(item => item.nome);
+            if (linhas.length > 0 && isNaN(parseFloat(linhas[0][1]))) {
+                linhas.shift();
             }
 
-            async function carregarCardapio() {
-                try {
-                    const nav = document.getElementById('nav-categorias');
-                    const container = document.getElementById('cardapio');
-                    
-                    nav.innerHTML = ABAS.map(aba => {
-                        const cat = CATEGORIAS[aba];
-                        if (!cat) return '';
-                        return `<a href="#${cat.id}" class="btn-cat">${cat.nome}</a>`;
-                    }).join('');
+            return linhas.map(linha => ({
+                nome: linha[0] || '',
+                precoP: linha[1] || '',
+                precoG: linha[2] || ''
+            })).filter(item => item.nome);
+        }
 
-                    let html = '';
-                    for (const aba of ABAS) {
-                        const cat = CATEGORIAS[aba];
-                        if (!cat) continue;
+        async function carregarCardapio() {
+            try {
+                const nav = document.getElementById('nav-categorias');
+                const container = document.getElementById('cardapio');
+                
+                nav.innerHTML = ABAS.map(aba => {
+                    const cat = CATEGORIAS[aba];
+                    if (!cat) return '';
+                    return `<a href="#${cat.id}" class="btn-cat">${cat.nome}</a>`;
+                }).join('');
 
-                        const itens = await buscarAba(aba);
-                        if (itens.length === 0) continue;
+                let html = '';
+                for (const aba of ABAS) {
+                    const cat = CATEGORIAS[aba];
+                    if (!cat) continue;
 
-                        html += `
-                            <h2 id="${cat.id}" class="titulo-grupo">
-                                ${cat.icone} ${cat.nome}
-                            </h2>
-                            ${itens.map(i => {
-                                const precos = [];
-                                if (i.precoP) precos.push(`$ ${i.precoP}`);
-                                if (i.precoG) precos.push(`$ ${i.precoG}`);
-                                
-                                return `
-                                    <div class="item">
-                                        <div class="item-info">
-                                            <div class="item-nome">${i.nome}</div>
-                                            <div class="item-precos">
-                                                ${precos.map(p => `<span>${p}</span>`).join('')}
-                                            </div>
+                    const itens = await buscarAba(aba);
+                    if (itens.length === 0) continue;
+
+                    html += `
+                        <h2 id="${cat.id}" class="titulo-grupo">${cat.nome}</h2>
+                        ${itens.map(i => {
+                            const precos = [];
+                            if (i.precoP) precos.push(`$ ${i.precoP}`);
+                            if (i.precoG) precos.push(`$ ${i.precoG}`);
+                            
+                            return `
+                                <div class="item">
+                                    <div class="item-info">
+                                        <div class="item-nome">${i.nome}</div>
+                                        <div class="item-precos">
+                                            ${precos.map(p => `<span>${p}</span>`).join('')}
                                         </div>
                                     </div>
-                                `;
-                            }).join('')}
-                        `;
-                    }
-
-                    container.innerHTML = html;
-
-                } catch (erro) {
-                    console.error('Erro ao carregar cardápio:', erro);
-                    document.getElementById('cardapio').innerHTML = 
-                        `<div class="loading">Erro ao carregar.<br><small>${erro.message}</small></div>`;
+                                </div>
+                            `;
+                        }).join('')}
+                    `;
                 }
-            }
 
-            // Garante que o DOM esteja pronto antes de executar
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', carregarCardapio);
-            } else {
-                carregarCardapio();
+                container.innerHTML = html;
+
+            } catch (erro) {
+                console.error('Erro ao carregar cardápio:', erro);
+                document.getElementById('cardapio').innerHTML = 
+                    `<div class="loading">Erro ao carregar.<br><small>${erro.message}</small></div>`;
             }
-        })();
+        }
+
+        // Inicialização
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', carregarCardapio);
+        } else {
+            carregarCardapio();
+        }
     </script>
 </body>
 </html>
