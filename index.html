@@ -185,16 +185,7 @@
             color: var(--cor-destaque);
             font-size: 1.5rem;
         }
-        @media (orientation: landscape) {
-            .nav-categorias { max-width: 600px; }
-            .container { max-width: 800px; }
-            header h1 { font-size: 3rem; }
-            footer h1 { font-size: 3rem; }
-            .item-nome, .item-precos { font-size: 3rem; }
-            .titulo-grupo { font-size: 3rem; }
-            .container { max-width: 700px; margin: 0 auto; padding: 0; }
-        }
-        /* === AVISO DE ORIENTAÇÃO === */
+    /* === AVISO DE ORIENTAÇÃO === */
         .orientation-warning {
             display: none;
             position: fixed;
@@ -214,17 +205,36 @@
             display: flex;
         }
 
-        .warning-content {
-            color: var(--cor-destaque);
-            font-size: 1.3rem;
-            font-family: 'Summer-Font-Light', cursive, sans-serif;
-            max-width: 400px;
+        .orientation-image {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            opacity: 1;
+            animation: fadeOut 1s ease-in-out 4s forwards;
         }
 
-        /* Mostra o aviso apenas em mobile landscape */
-        @media (max-width: 768px) and (orientation: landscape) {
-            .orientation-warning {
-            display: flex;
+        /* Animação de fade-out */
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+/* Mostra o aviso apenas em mobile landscape */
+            
+    @media (orientation: landscape) {
+            .orientation-warning { display: flex; }
+            .nav-categorias { max-width: 600px; }
+            .container { max-width: 800px; }
+            header h1 { font-size: 3rem; }
+            footer h1 { font-size: 3rem; }
+            .item-nome, .item-precos { font-size: 3rem; }
+            .titulo-grupo { font-size: 3rem; }
+            .container { max-width: 700px; margin: 0 auto; padding: 0; }
         }
 }
     </style>
@@ -256,35 +266,41 @@
     <a href="https://wa.me/5511958974341?text=Olá, vim pelo cardápio online e gostaria de fazer um pedido!" class="btn-whatsapp-novo" target="_blank">
         <div><img src="glchina_botao_whatsapp.png" width="50%"></div>
     </a>
-    <!-- Aviso de Orientação Portrait -->
-<div class="orientation-warning" id="orientation-warning">
-    <div class="warning-content">
-        <p>📱 Para melhor visualização, por favor, gire seu dispositivo para o modo <strong>vertical (portrait)</strong>.</p>
-    </div>
-</div>
+        <!-- Aviso de Orientação Portrait -->
+        <div class="orientation-warning" id="orientation-warning">
+            <img src="orientation-warning.png" alt="Gire para modo vertical" class="orientation-image">
+        </div>
     <!-- SCRIPT DE INTEGRAÇÃO GOOGLE SHEETS -->
     <script>
         // Verifica orientação ao carregar e ao girar
+            let warningTimeout;
+
         function verificarOrientacao() {
             const aviso = document.getElementById('orientation-warning');
             const ehMobile = window.innerWidth <= 768;
             const ehLandscape = window.innerWidth > window.innerHeight;
-    
+
             if (ehMobile && ehLandscape) {
                 aviso.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Impede scroll
+                document.body.style.overflow = 'hidden';
+
+                // Remove o aviso após 5 segundos
+                clearTimeout(warningTimeout);
+                warningTimeout = setTimeout(() => {
+                    aviso.classList.remove('active');
+                    document.body.style.overflow = '';
+                }, 5000);
             } else {
-            aviso.classList.remove('active');
+                aviso.classList.remove('active');
                 document.body.style.overflow = '';
+                clearTimeout(warningTimeout);
             }
         }
 
         // Executa ao carregar e ao girar a tela
-            window.addEventListener('load', verificarOrientacao);
-            window.addEventListener('resize', verificarOrientacao);
-            window.addEventListener('orientationchange', verificarOrientacao);
-        (function() {
-            'use strict';
+        window.addEventListener('load', verificarOrientacao);
+        window.addEventListener('resize', verificarOrientacao);
+        window.addEventListener('orientationchange', verificarOrientacao);
             
             // ✅ SEU ID DA PLANILHA
             const SHEET_ID = '1citDb4cjHNWTZq-laTu_3gZnXZGoyx69Dh5q5axj5kQ';
