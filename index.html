@@ -77,7 +77,7 @@
         .container { 
             max-width: 700px; 
             margin: 0 auto; 
-            padding: 0;
+            padding: 20px;
         }
         
         /* === TÍTULOS DE GRUPO === */
@@ -128,12 +128,8 @@
 
         /* === BOTÃO WHATSAPP (CENTRALIZADO) === */
         .btn-whatsapp-novo {
-            position: fixed;
-            bottom: 70px;
-            left: 50%;
-            transform: translateX(-50%);
+            position: inherit;
             color: white;
-            padding: 18px 25px;
             text-decoration: none;
             font-weight: bold;
             z-index: 200;
@@ -141,7 +137,10 @@
             align-items: center;
             gap: 10px;
             font-size: 1.2rem;
-            font-family: sans-serif;
+            font-family: sans-serif;width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            display: block;
         }
         .btn-whatsapp-novo img {
             max-width: 200px;
@@ -150,10 +149,10 @@
 
         /* === FOOTER (ALINHADO) === */
         footer { 
-            text-align: right; 
-            padding: 100px 20px 40px; 
+            text-align: center; 
+            padding: 20px 20px 20px; 
             color: var(--cor-destaque);
-            font-size: 1.9rem; 
+            font-size: 2.4rem;
             line-height: 1.8;
             max-width: 700px;
             margin: 0 auto;
@@ -175,7 +174,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #000000;
+            background-color: rgba(0,0,0,0.8);
             z-index: 9999;
             align-items: center;
             justify-content: center;
@@ -203,15 +202,8 @@
         }
 
         /* === MEDIA QUERIES RESPONSIVAS === */
-        @media (min-width: 768px) {
-            .item-nome, .item-precos { font-size: 2.5rem; }
-            .titulo-grupo { font-size: 2.5rem; }
-        }
-
-        @media (max-width: 767px) {
-            .item-nome, .item-precos { font-size: 2.2rem; }
-            .titulo-grupo { font-size: 2.2rem; }
-            .btn-whatsapp-novo { bottom: 20px; }
+        @media (orientation: landscape) {            
+            .container { padding: 0px; }
         }
     </style>
 </head>
@@ -234,13 +226,6 @@
     <div class="container" id="cardapio">
         <div class="loading">Carregando cardápio...</div>
     </div>
-
-    <!-- RODAPÉ -->
-    <footer>
-        <p class="endereco">FAZEMOS ENTREGAS (consulte localização)</p>
-        <p class="endereco">Av. Dionysia Alves Barreto, 802,<br>Centro, Osasco, SP</p>
-        <p class="horario">Seg a Sáb das 8h às 20h</p>
-    </footer>
     
     <!-- BOTÃO WHATSAPP -->
     <a href="https://wa.me/5511958974341?text=Olá, vim pelo cardápio online e gostaria de fazer um pedido!" 
@@ -249,6 +234,15 @@
        rel="noopener noreferrer">
         <img src="glchina_botao_whatsapp.png" alt="Pedir no WhatsApp">
     </a>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p class="endereco">LOCAL, RETIRADA E ENTREGAS (consulte localização)</p>
+        <p class="endereco">Av. Dionysia Alves Barreto, 802, Centro, Osasco, SP</p>
+        <p class="horario">Seg a Sáb das 8h às 20h</p>
+    </footer>
+    
+    
 
     <!-- AVISO DE ORIENTAÇÃO PORTRAIT -->
     <div class="orientation-warning" id="orientation-warning">
@@ -263,10 +257,9 @@
 
         function verificarOrientacao() {
             const aviso = document.getElementById('orientation-warning');
-            const ehMobile = window.innerWidth <= 768;
             const ehLandscape = window.innerWidth > window.innerHeight;
             
-            if (ehMobile && ehLandscape) {
+            if (ehLandscape) {
                 aviso.classList.add('active');
                 aviso.classList.remove('fade-out');
                 document.body.style.overflow = 'hidden';
@@ -280,7 +273,7 @@
                         aviso.classList.remove('active');
                         document.body.style.overflow = '';
                     }, 500);
-                }, 4500);
+                }, 3500);
             } else {
                 aviso.classList.remove('active');
                 aviso.classList.remove('fade-out');
